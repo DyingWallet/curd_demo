@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.ort//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ronghaoxu.curd_demo.mapper.UserMapper">
+    <!--实体类与数据库名表中列名对应则可以不定义resultMap
+    <resultMap id="userQuery" type="ronghaoxu.curd_demo.pojo.User">
+        <result column="id" property="id"/>
+        <result column="mobile" property="mobile"/>
+        <result column="password" property="password"/>
+        <result column="sex" property="sex"/>
+        <result column="birthdate" property="birthdate"/>
+        <result column="address" property="address"/>
+        <result column="email" property="email"/>
+        <result column="state" property="state"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>-->
+
+    <!--按id精确查找-->
+    <select id="queryById" resultType="ronghaoxu.curd_demo.pojo.User">
+        select * from user where id = #{id}
+    </select>
+
+    <!--查找所有-->
+    <select id="queryAll" resultType="ronghaoxu.curd_demo.pojo.User">
+        select * from user
+    </select>
+
+
+    <!--对id关联的信息进行更新
+        此demo中以更改密码/注销、封禁用户为例-->
+    <!--更改密码-->
+    <update id="changePasswd" parameterType="ronghaoxu.curd_demo.pojo.User">
+        update user set password = #{password},update_time = #{update_time} where id = #{id}
+    </update>
+
+    <!--更改用户帐号状态-->
+    <update id="changeState" parameterType="ronghaoxu.curd_demo.pojo.User">
+        update user set state = #{state},update_time = #{update_time} where id = #{id}
+    </update>
+
+    <!--新增用户-->
+    <insert id="insertUser" parameterType="ronghaoxu.curd_demo.pojo.User">
+        insert into user(id, mobile, password, sex, birthdate, address, email, state, create_time, update_time)
+        values (#{id},#{mobile},#{password},#{sex},#{birthdate},#{address},#{email},#{state},#{create_time},#{update_time})
+    </insert>
+
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="ronghaoxu.curd_demo.pojo.User">
+        delete from user where id = #{id}
+    </delete>
+
+</mapper>
